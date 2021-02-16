@@ -1,5 +1,3 @@
-# This file contains all the routes for the Feedback functionality
-
 from app import app
 from flask import render_template, redirect, url_for, session, flash
 from app.classes.data import User, Bullcoin, Transaction, Service

@@ -10,7 +10,7 @@ an administrator etc.
 
 Users are managed by several different files: 
 * in app/classes/data.py there is a User data class that defines what data fields are stored for each user
-* in app/classes/formd.py there is a UserForm class that defines what fields can be edited for each user
+* in app/classes/forms.py there is a UserForm class that defines what fields can be edited for each user
 * There is this file which does all the hard work.  the /login and /editprofile routes are were you might
 want to make changes for your site 
 * in app/templates/profile.html and app/templates/editprofile.html are the templates that are used to 
@@ -57,7 +57,6 @@ def before_request():
     try: 
         session['return_URL']
     except KeyError:
-        flash(f"Setting Return URL to '/'.")
         session['return_URL'] = '/'
     
     if request.path not in unauthPaths:
@@ -250,11 +249,11 @@ def authorize():
         # re-prompting the user for permission. Recommended for web server apps.
         access_type='offline',
         # Enable incremental authorization. Recommended as a best practice.
-        include_granted_scopes='true',
+        include_granted_scopes='true'
         # Force the Google Account picker even if there is only one account. This is 
         # because a user can login as a non-ousd user but not be allowed access to anything
         # so it becomes difficult to login with an OUSD account after that if you have one.
-        prompt='select_account'
+        # prompt='select_account'
         )
 
     # Store the state so the callback can verify the auth server response.

@@ -132,7 +132,7 @@ def login():
         # Create a newUser object filled with the google values and the values that were just created
         newUser = User(
                         gid=data['emailAddresses'][0]['metadata']['source']['id'], 
-                        gfname=data['names'][0]['displayName'], 
+                        gfname=data['names'][0]['givenName'], 
                         glname=data['names'][0]['familyName'],
                         fname=data['names'][0]['givenName'], 
                         lname=data['names'][0]['familyName'],

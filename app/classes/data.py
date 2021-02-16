@@ -11,6 +11,7 @@ job of making it easy to to do the basic stuff
 # where I use them.  Some of them like StringField and IntField are obvious. When you use these fields below they are used as methods
 # which simply means that you use '()' after the field name like 'StringField()'. You can find all of the mongoengine fields here
 # http://docs.mongoengine.org/apireference.html#fields
+from typing import List
 from mongoengine import Document, StringField, IntField, BooleanField, ReferenceField, EmbeddedDocumentField, DateTimeField, DateField, EmailField, URLField, ListField, CASCADE
 import datetime as d
 
@@ -30,11 +31,12 @@ class User(Document):
     # users can have the same gid.
     gid = StringField(unique=True)
     # The role value is enterred by the code in the user.py routes based on if the user's email as an 's_' at the beginning.
-    # The roles are "teacher" or "Student"
+    # The roles are teacher", "student" 
     role = StringField()
     # In the users.py file there is a python list of email addresses of people designated to be "admins" of this app.
     # so that user has some special privleges.
     admin = BooleanField()
+    banker = BooleanField()
     # The following values are all set in the users.py file.  these fields can all be edited by the user in the edit profile function.
     pronouns = StringField()
     fname = StringField()
@@ -44,9 +46,28 @@ class User(Document):
     # DateField() holds just a date.  There is also a DateTimeField()
     birthdate = DateField()
     # This is how you set the default sorting.  You can also sort records after you retreive them in the route.
+    coins = ListField(ReferenceField('Bullcoin'))
     meta = {
         'ordering': ['+lname', '+fname']
     }
+
+class Bullcoin(Document):
+    owner = ReferenceField('User')
+    created = DateTimeField(default=d.datetime.utcnow)
+    amt = IntField(default=1)
+
+class Service(Document):
+    provider = ReferenceField('User')
+    receiver = ReferenceField('User')
+    amt = IntField()
+    verified = BooleanField()
+    date = DateTimeField()
+    type_ = StringField() #request or offer
+
+class Transaction(Document):
+    giver = ReferenceField('User')
+    getter = ReferenceField('User')
+    bullcoins = ListField(ReferenceField('Bullcoin'))
 
 # This class is what creates the Feedback document in the database.
 # A feedback is defined as a comment by a user on some feature of the website. 

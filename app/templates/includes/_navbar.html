@@ -1,21 +1,30 @@
 <!-- This is the navbar code. This code will be included in all of the template files. -->
 <nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background-color:  #800080">
-  <a class="navbar-brand" href="/">OT Computer Science WebApp</a>
+  <a class="navbar-brand" href="/">BullCoin</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
+    <!--ul class="navbar-nav">
       <li>
         <a class="nav-link active" href="/calendar">My Calendar</a>
       </li>
       <li>
-        <a class="nav-link active" href="#">OtherLinks</a>
+        <a class="nav-link active" href="#">A Link</a>
       </li>
-    </ul>
+    </ul-->
     <ul class="navbar-nav ml-auto">
       {% if session['credentials'] and session["displayName"] %}
-
+        {% if session['admin'] %}
+          <li class="nav-item dropdown active">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Admin
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="/admin">admin</a>
+            </div>
+          </li>
+        {% endif %}
           <li class="nav-item dropdown active">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Feedback

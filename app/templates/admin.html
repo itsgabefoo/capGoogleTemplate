@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block body %}
+    <div class="container">
+        <h1>Admin.html</h1>
+        {% if numBankCoins %}            
+            <b>The bank currently has {{numBankCoins}} coins</b> <br>
+        {% else %}
+            <b>The bank is broke!</b> <br>
+        {% endif %}
+        <br>
+        <b>Users with coins</b> <br>
+        {% if coinOwners %}
+            {% for coinOwner in coinOwners %}
+                {{coinOwner.gfname}} has {{coinOwner.coins|length}} coins<br>
+            {% endfor %}
+        {% else %}
+            No one has any coins! <br>
+        {% endif %}
+        <br>
+        <b>Commands</b> <br>
+        add coins to the bank with /coinmint/amt <br>
+        delete coins from the bank with /coinmint/-amt <br>
+        You can give from the bank to a user with: /bankcoingive/useremail/amt <br>
+        You can take coins back for the bank froim a user with: /bankcoingive/useremail/-amt <br>
+    </div>
+{% endblock %}

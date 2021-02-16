@@ -46,7 +46,6 @@ class User(Document):
     # DateField() holds just a date.  There is also a DateTimeField()
     birthdate = DateField()
     # This is how you set the default sorting.  You can also sort records after you retreive them in the route.
-    coins = ListField(ReferenceField('Bullcoin'))
     meta = {
         'ordering': ['+lname', '+fname']
     }

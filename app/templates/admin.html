@@ -12,7 +12,9 @@
         <b>Users with coins</b> <br>
         {% if coinOwners %}
             {% for coinOwner in coinOwners %}
-                {{coinOwner.gfname}} has {{coinOwner.coins|length}} coins<br>
+                {% if coinOwner._id != "Bank" %}
+                    {{coinOwner._id.gfname}} has {{coinOwner.count}} coins <br>
+                {% endif %}
             {% endfor %}
         {% else %}
             No one has any coins! <br>

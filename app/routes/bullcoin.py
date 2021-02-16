@@ -12,9 +12,20 @@ def admin():
     currUser = User.objects.get(pk = session['currUserId'])
     if currUser.admin:
         numBankCoins = Bullcoin.objects(owner=None).count()
-        allCoinOwners = User.objects(coins__exists = True)
-        print(allCoinOwners)
-        return render_template("admin.html", numBankCoins=numBankCoins, coinOwners=allCoinOwners)
+        #coinOwners = Bullcoin.objects().distinct(field="owner")
+        pipeline=[
+            { "$group" : { "_id": "$owner", "count" : { "$sum" : 1 } } }
+            ]
+        coinOwners = Bullcoin.objects().aggregate(pipeline)
+        coinOwnersDisplay = []
+        for coinOwner in coinOwners:
+            if coinOwner['_id'] == None:
+                coinOwner['_id'] = "Bank"
+            else:
+                coinOwner['_id'] = User.objects.get(pk=coinOwner['_id'])
+            coinOwnersDisplay.append(coinOwner)
+
+        return render_template("admin.html", numBankCoins=numBankCoins, coinOwners=coinOwnersDisplay)
     else:
         flash(f"You are not an admin.")
         return redirect('profile')
@@ -56,8 +67,6 @@ def coingive(useremail,amt):
                 coin.update(
                     owner = getter
                 )
-                getter.coins.append(coin)
-            getter.save()
 
         # remove coins from the user and give them to the bank
         elif amt < 0:
@@ -77,11 +86,6 @@ def coingive(useremail,amt):
             for coin in getterCoins:
                 coin.update(
                     owner = None
-                )
-
-            # Remove all the coins from the user's list too
-            getter.update(
-                pull_all__following = getterCoins
                 )
 
             flash(f"{abs(amt)} coins were taken from {getter.gfname} {getter.glname} and given back to the bank.")

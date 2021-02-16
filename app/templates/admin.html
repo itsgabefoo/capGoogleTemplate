@@ -2,14 +2,21 @@
 
 {% block body %}
     <div class="container">
-        <h1>Admin.html</h1>
+        <h1>BullCoin Admin Page</h1>
+        {% if numTotalCoins %}
+            <b>There are currently {{numTotalCoins}} Total BullCoins.</b>
+        {% else %}
+            <b>There are no Bullcoins?!</b>
+        {% endif %}
+        <br>
         {% if numBankCoins %}            
             <b>The bank currently has {{numBankCoins}} coins</b> <br>
         {% else %}
             <b>The bank is broke!</b> <br>
         {% endif %}
         <br>
-        <b>Users with coins</b> <br>
+        {% set numUserCoins = numTotalCoins - numBankCoins %}
+        <b>Users have a total of {{numUserCoins}} coins</b> (This list will be too long eventually) <br>
         {% if coinOwners %}
             {% for coinOwner in coinOwners %}
                 {% if coinOwner._id != "Bank" %}
@@ -20,7 +27,7 @@
             No one has any coins! <br>
         {% endif %}
         <br>
-        <b>Commands</b> <br>
+        <b>Commands</b> (These will all become buttons and forms and not just URLs to type in) <br>
         add coins to the bank with /coinmint/amt <br>
         delete coins from the bank with /coinmint/-amt <br>
         You can give from the bank to a user with: /bankcoingive/useremail/amt <br>

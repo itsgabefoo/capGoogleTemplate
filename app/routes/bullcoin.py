@@ -10,11 +10,15 @@ def admin():
     currUser = User.objects.get(pk = session['currUserId'])
     if currUser.admin:
         numBankCoins = Bullcoin.objects(owner=None).count()
-        #coinOwners = Bullcoin.objects().distinct(field="owner")
+        numTotalCoins = Bullcoin.objects().count()
+
+        # this is a mongodb aggregation that groups by the owner field and then counts the number of records in each grou[]
         pipeline=[
             { "$group" : { "_id": "$owner", "count" : { "$sum" : 1 } } }
             ]
         coinOwners = Bullcoin.objects().aggregate(pipeline)
+
+        # need to get the User object from the ObjectId that is the result of the aggregation operation
         coinOwnersDisplay = []
         for coinOwner in coinOwners:
             if coinOwner['_id'] == None:
@@ -23,7 +27,7 @@ def admin():
                 coinOwner['_id'] = User.objects.get(pk=coinOwner['_id'])
             coinOwnersDisplay.append(coinOwner)
 
-        return render_template("admin.html", numBankCoins=numBankCoins, coinOwners=coinOwnersDisplay)
+        return render_template("admin.html", numBankCoins=numBankCoins, numTotalCoins=numTotalCoins, coinOwners=coinOwnersDisplay)
     else:
         flash(f"You are not an admin.")
         return redirect('profile')
@@ -48,6 +52,8 @@ def coinmint(amt):
     
     return redirect(url_for('admin'))
 
+# TODO make a version of this script to give x coins to all users
+# might need to do do it with a jQuery round trip so that each user is a seperate request to avoid timeout
 @app.route('/bankcoingive/<useremail>/<amt>')
 def coingive(useremail,amt):
     currUser = User.objects.get(pk=session['currUserId'])
@@ -88,3 +94,4 @@ def coingive(useremail,amt):
 
             flash(f"{abs(amt)} coins were taken from {getter.gfname} {getter.glname} and given back to the bank.")
         return redirect(url_for("admin"))
+

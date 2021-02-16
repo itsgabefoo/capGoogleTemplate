@@ -80,7 +80,7 @@ def coingive(useremail,amt):
                 return redirect(url_for('admin'))
 
             # Get all of the getter's coins that are going to be given back to the bank
-            getterCoins = Bullcoin.objects(owner=getter)
+            getterCoins = Bullcoin.objects(owner=getter).limit(abs(amt))
 
             # Remove the getter from the coins owner field
             for coin in getterCoins:

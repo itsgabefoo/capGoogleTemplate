@@ -13,7 +13,7 @@
         {% if coinOwners %}
             {% for coinOwner in coinOwners %}
                 {% if coinOwner._id != "Bank" %}
-                    {{coinOwner._id.gfname}} has {{coinOwner.count}} coins <br>
+                    {{coinOwner._id.gfname}} ({{coinOwner._id.email}}) has {{coinOwner.count}} coins <br>
                 {% endif %}
             {% endfor %}
         {% else %}

@@ -35,7 +35,7 @@ import os
 CLIENT_SECRETS_FILE = "credentials.json"
 
 # List of email addresses for Admin users
-admins = ['stephen.wright@ousd.org','s_your.name@ousd.org']
+admins = ['stephen.wright@ousd.org','s_samuel.worku@ousd.org','s_mohammed.mohammed@ousd.org','s_elyas.ahmed@ousd.org','s_angel.liang2@ousd.org']
 
 # This runs before every route and serves to make sure users are using a secure site and can only
 # access pages they are allowed to access

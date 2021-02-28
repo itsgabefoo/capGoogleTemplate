@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block body %}
+    <div class="container">
+        <h1>Services</h1>
+        <a href="/servicenew"><img width="40" src="/static/new.png"></a>
+        <table class="table">
+            <tr><td></td><th>Category</th><th>Subject</th><th>Provider</th><th>Applicant</th><th>When</th><th>Verified</th></tr>
+            {% for service in services %}
+                <tr>
+                    <td>
+                        <a href="/serviceedit/{{service.id}}"><img width="20" src="/static/edit.png"></a>
+                        <a href="/servicedelete/{{service.id}}"><img width="20" src="/static/delete.png"></a>
+                    </td>
+                    <td>{{service.category}}</td>
+                    <td>
+                        <a href="/service/{{service.id}}">{{service.subject}}</a>
+                    </td>
+                    <td>
+                        {% if service.provider %}
+                            {{service.provider.fname}} {{service.provider.lname}}
+                        {% else %}
+                            <a href="/service/{{service.id}}"><img width="20" src="/static/new.png"></a>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if service.applicant %}
+                            {{service.applicant.fname}} {{service.applicant.lname}}
+                        {% else %}
+                            <a href="/service/{{service.id}}"><img width="20" src="/static/new.png"></a>
+                        {% endif %}
+                    </td>
+                    <td>{{service.datetime}}</td>
+                    <td>{{service.verified}}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

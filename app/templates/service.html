@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block body %}
+    <div class="container">
+        <table class="table">
+            <tr><td>Verified</td><td>{{service.verified}}</td></tr>
+            <tr><td>Subject</td><td>{{service.subject}}</td></tr>
+            <tr><td>Category</td><td>{{service.category}}</td></tr>
+            <tr><td>Date</td><td>{{service.datetime}}</td></tr>
+            <tr>
+                <td>Provider</td>
+                <td>
+                    {%if service.provider%}
+                        {{service.provider.fname}} {{service.provider.lname}}
+                    {% else %}
+                        <a href="/serviceedit/{{service.id}}"><img width="20" src="/static/new.png"></a>
+                    {%endif%}
+                </td>
+            </tr>
+            <tr>
+                <td>Applicant</td>
+                <td>
+                    {% if service.applicant %}
+                        {{service.applicant.fname}} {{service.applicant.lname}}
+                    {% else %}
+                        <a href="/serviceedit/{{service.id}}"><img width="20" src="/static/new.png"></a>
+                    {%endif%}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    Description: <br>
+                    {{service.desc}}
+                </td>
+            </tr>
+        </table>
+    </div>
+{% endblock %}

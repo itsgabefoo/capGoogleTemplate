@@ -15,6 +15,8 @@ from typing import List
 from mongoengine import Document, StringField, IntField, BooleanField, ReferenceField, EmbeddedDocumentField, DateTimeField, DateField, EmailField, URLField, ListField, CASCADE
 import datetime as d
 
+from wtforms.fields.html5 import TimeField
+
 # This class is what creates the databse document where all user information is stored.
 class User(Document):
     # Values copied from the Google Account or input by code. I recommend NOT editing the values in these fields
@@ -56,12 +58,15 @@ class Bullcoin(Document):
     amt = IntField(default=1)
 
 class Service(Document):
+    subject = StringField()
     provider = ReferenceField('User')
-    receiver = ReferenceField('User')
+    applicant = ReferenceField('User')
     amt = IntField()
     verified = BooleanField()
-    date = DateTimeField()
+    datetime = DateTimeField()
     type_ = StringField() #request or offer
+    category = StringField()
+    desc = StringField()
 
 class Transaction(Document):
     giver = ReferenceField('User')

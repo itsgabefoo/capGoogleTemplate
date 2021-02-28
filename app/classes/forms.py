@@ -6,8 +6,11 @@
 # wtforms is the library that manages this and has good docs and help on stackexchange
 # the imports here are for wtforms and various other wtforms components
 from flask_wtf import FlaskForm
-from wtforms.fields.html5 import URLField, DateField
-from wtforms_components import TimeField
+from wtforms import StringField, SubmitField, validators, TextAreaField, HiddenField, IntegerField, SelectField, FileField, BooleanField
+from wtforms.fields.html5 import SearchField, URLField, DateTimeLocalField, DateField, TimeField
+from wtforms.widgets.html5 import DateTimeInput
+from wtforms.validators import url, NumberRange, Email, Optional, InputRequired
+# from wtforms_components import TimeField
 from wtforms.validators import url
 from wtforms import StringField, SubmitField, validators, TextAreaField, HiddenField, IntegerField, SelectField
 
@@ -29,6 +32,16 @@ class UserForm(FlaskForm):
     image = URLField('Image URL', validators=[url()])
     birthdate = DateField()
     # all forms must have a submit
+    submit = SubmitField("Submit")
+
+class ServiceForm(FlaskForm):
+    subject = StringField('Subject: ',validators=[InputRequired()])
+    amt = IntegerField(default=1)
+    verified = BooleanField()
+    datetime = DateTimeLocalField(format='%Y-%m-%dT%H:%M')
+    type_ = SelectField("Type: ",choices=[('','----'),("Provider","Provider"),("Applicant","Applicant")],validators=[InputRequired()])
+    category = SelectField("",choices=[('','----'),("Tutoring","Tutoring")],validators=[InputRequired()])
+    desc = TextAreaField('Description: ')
     submit = SubmitField("Submit")
 
 # This is the form for creating and editing a Post.

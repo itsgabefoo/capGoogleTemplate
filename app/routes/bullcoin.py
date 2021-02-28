@@ -1,7 +1,7 @@
 from app import app
 from flask import render_template, redirect, url_for, session, flash
 from app.classes.data import User, Bullcoin, Transaction, Service
-#from app.classes.forms import 
+from app.classes.forms import ServiceForm
 import datetime as dt
 from bson.objectid import ObjectId
 
@@ -92,6 +92,88 @@ def coingive(useremail,amt):
                     owner = None
                 )
 
-            flash(f"{abs(amt)} coins were taken from {getter.gfname} {getter.glname} and given back to the bank.")
+            flash(f"{abs(amt)} coins were taken from {getter.fname} {getter.lname} and given back to the bank.")
         return redirect(url_for("admin"))
 
+@app.route('/service/<serviceid>')
+def service(serviceid):
+    service=Service.objects.get(pk=serviceid)
+    return render_template('service.html', service=service)
+
+@app.route('/services')
+def services():
+    services=Service.objects()
+    return render_template('services.html',services=services)
+
+@app.route('/servicenew', methods=['GET', 'POST'])
+def servicenew():
+
+    form = ServiceForm()
+
+    if form.validate_on_submit():
+        currUser=User.objects.get(pk=session['currUserId'])
+        if form.type_.data=="Provider":
+            newService = Service(
+                provider=currUser,
+                datetime=form.datetime.data,
+                category=form.category.data,
+                subject=form.subject.data,
+                desc=form.desc.data,
+                type_=form.type_.data
+            )
+        else:
+            newService = Service(
+                applicant=currUser,
+                datetime=form.datetime.data,
+                category=form.category.data,
+                subject=form.subject.data,
+                desc=form.desc.data,
+                type_=form.type_.data
+            )
+        newService.verified=False
+        newService.save()
+
+        return render_template('service.html',service=newService)
+
+    return render_template('serviceform.html',form=form, service=None)
+
+@app.route('/serviceedit/<serviceid>', methods=['GET', 'POST'])
+def serviceedit(serviceid):
+    form = ServiceForm()
+    editService = Service.objects.get(pk=serviceid)
+    if form.validate_on_submit():
+        currUser=User.objects.get(pk=session['currUserId'])
+        if form.type_.data=="Provider":
+            editService.update(
+                provider=currUser,
+                datetime=form.datetime.data,
+                category=form.category.data,
+                subject=form.subject.data,
+                desc=form.desc.data,
+                verified=form.verified.data
+            )
+        else:
+            editService.update(
+                applicant=currUser,
+                datetime=form.datetime.data,
+                category=form.category.data,
+                subject=form.subject.data,
+                desc=form.desc.data,
+                verified=form.verified.data
+            )
+        editService.reload()
+        return render_template('service.html',service=editService)
+
+    form.datetime.data = editService.datetime
+    form.type_.data = editService.type_
+    form.category.data = editService.category
+    form.desc.data = editService.desc
+    form.subject.data = editService.subject
+    return render_template('serviceform.html',form=form, service=editService)
+
+
+@app.route('/servicedelete/<serviceid>')
+def servicedelete(serviceid):
+    delService = Service.objects.get(pk=serviceid)
+    delService.delete()
+    return redirect(url_for('services'))

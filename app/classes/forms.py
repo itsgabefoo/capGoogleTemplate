@@ -37,10 +37,9 @@ class UserForm(FlaskForm):
 class ServiceForm(FlaskForm):
     subject = StringField('Subject: ',validators=[InputRequired()])
     amt = IntegerField(default=1)
-    verified = BooleanField()
     datetime = DateTimeLocalField(format='%Y-%m-%dT%H:%M')
     type_ = SelectField("Type: ",choices=[('','----'),("Provider","Provider"),("Applicant","Applicant")],validators=[InputRequired()])
-    category = SelectField("",choices=[('','----'),("Tutoring","Tutoring")],validators=[InputRequired()])
+    category = SelectField("",choices=[("Tutoring","Tutoring")],validators=[InputRequired()])
     desc = TextAreaField('Description: ')
     submit = SubmitField("Submit")
 

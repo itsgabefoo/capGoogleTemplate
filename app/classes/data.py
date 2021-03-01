@@ -59,6 +59,7 @@ class Bullcoin(Document):
 
 class Service(Document):
     subject = StringField()
+    owner = ReferenceField('User')
     provider = ReferenceField('User')
     applicant = ReferenceField('User')
     amt = IntField()

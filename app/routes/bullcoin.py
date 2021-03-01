@@ -112,35 +112,36 @@ def servicenew():
 
     if form.validate_on_submit():
         currUser=User.objects.get(pk=session['currUserId'])
+
         if form.type_.data=="Provider":
             newService = Service(
-                provider=currUser,
-                datetime=form.datetime.data,
-                category=form.category.data,
-                subject=form.subject.data,
-                desc=form.desc.data,
-                type_=form.type_.data
+                provider=currUser
             )
         else:
             newService = Service(
-                applicant=currUser,
-                datetime=form.datetime.data,
-                category=form.category.data,
-                subject=form.subject.data,
-                desc=form.desc.data,
-                type_=form.type_.data
+                applicant=currUser
             )
+        newService.owner=currUser
+        newService.datetime=form.datetime.data
+        newService.category=form.category.data
+        newService.subject=form.subject.data
+        newService.desc=form.desc.data
+        newService.type_=form.type_.data
         newService.verified=False
         newService.save()
 
-        return render_template('service.html',service=newService)
+        return redirect(url_for('service',serviceid=newService.id))
 
     return render_template('serviceform.html',form=form, service=None)
 
 @app.route('/serviceedit/<serviceid>', methods=['GET', 'POST'])
 def serviceedit(serviceid):
-    form = ServiceForm()
     editService = Service.objects.get(pk=serviceid)
+    if not session['admin'] and not str(session['currUserId']) == str(editService.owner.id):
+        flash('You are are not the owner of this service.')
+        return redirect(url_for('service',serviceid=editService.id))
+
+    form = ServiceForm()
     if form.validate_on_submit():
         currUser=User.objects.get(pk=session['currUserId'])
         if form.type_.data=="Provider":
@@ -149,8 +150,7 @@ def serviceedit(serviceid):
                 datetime=form.datetime.data,
                 category=form.category.data,
                 subject=form.subject.data,
-                desc=form.desc.data,
-                verified=form.verified.data
+                desc=form.desc.data
             )
         else:
             editService.update(
@@ -158,11 +158,10 @@ def serviceedit(serviceid):
                 datetime=form.datetime.data,
                 category=form.category.data,
                 subject=form.subject.data,
-                desc=form.desc.data,
-                verified=form.verified.data
+                desc=form.desc.data
             )
         editService.reload()
-        return render_template('service.html',service=editService)
+        return redirect(url_for('service',serviceid=editService.id))
 
     form.datetime.data = editService.datetime
     form.type_.data = editService.type_
@@ -171,9 +170,42 @@ def serviceedit(serviceid):
     form.subject.data = editService.subject
     return render_template('serviceform.html',form=form, service=editService)
 
+@app.route('/serviceselect/<serviceid>/<type_>')
+def serviceprovide(serviceid,type_):
+    editService = Service.objects.get(pk=serviceid)
+    currUser=User.objects.get(pk=session['currUserId'])
+    if currUser == editService.applicant or currUser == editService.provider:
+        flash("You can't both provide and receive a service.")
+        return redirect(url_for('service',serviceid=editService.id))
+
+    if type_=='p':
+        editService.update(
+            provider=currUser
+        )
+    elif type_=='a':
+        editService.update(
+            applicant=currUser
+        )
+    else:
+        flash(f"Something went worng.")
+    editService.reload()
+    return redirect(url_for('service',serviceid=editService.id))
+
+@app.route('/serviceverify/<serviceid>')
+def serviceverify(serviceid):
+    service=Service.objects.get(pk=serviceid)
+    if not str(service.applicant.id) == str(session['currUserId']):
+        flash(f"Only the person who received the service can varify the service was received.")
+        return redirect(url_for('service',serviceid=service.id))
+    service.update(verified=True)
+    service.reload
+    return redirect(url_for('service',serviceid=serviceid))
 
 @app.route('/servicedelete/<serviceid>')
 def servicedelete(serviceid):
+    if not session['admin'] and not str(session['currUserId']) == str(editService.owner.id):
+        flash('You are are not the owner of this service.')
+        return redirect(url_for('service',serviceid=serviceid))
     delService = Service.objects.get(pk=serviceid)
     delService.delete()
     return redirect(url_for('services'))

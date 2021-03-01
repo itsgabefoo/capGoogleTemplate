@@ -3,7 +3,16 @@
 {% block body %}
     <div class="container">
         <table class="table">
-            <tr><td>Verified</td><td>{{service.verified}}</td></tr>
+            <tr><td>Owner</td><td>{{service.owner.fname}} {{service.owner.lname}}</td></tr>
+            <tr>
+                <td>Verified</td>
+                <td>
+                    {{service.verified}}
+                    {% if service.applicant.id|string == session['currUserId']|string %}
+                        <a href="/serviceverify/{{service.id}}"><img width="20" src="/static/new.png"></a>
+                    {% endif %}
+                </td>
+            </tr>
             <tr><td>Subject</td><td>{{service.subject}}</td></tr>
             <tr><td>Category</td><td>{{service.category}}</td></tr>
             <tr><td>Date</td><td>{{service.datetime}}</td></tr>
@@ -13,7 +22,7 @@
                     {%if service.provider%}
                         {{service.provider.fname}} {{service.provider.lname}}
                     {% else %}
-                        <a href="/serviceedit/{{service.id}}"><img width="20" src="/static/new.png"></a>
+                        <a href="/serviceselect/{{service.id}}/p"><img width="20" src="/static/new.png"></a>
                     {%endif%}
                 </td>
             </tr>
@@ -23,7 +32,7 @@
                     {% if service.applicant %}
                         {{service.applicant.fname}} {{service.applicant.lname}}
                     {% else %}
-                        <a href="/serviceedit/{{service.id}}"><img width="20" src="/static/new.png"></a>
+                        <a href="/serviceselect/{{service.id}}/a"><img width="20" src="/static/new.png"></a>
                     {%endif%}
                 </td>
             </tr>

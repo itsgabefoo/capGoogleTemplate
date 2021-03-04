@@ -29,6 +29,7 @@ import requests
 import google.oauth2.credentials
 import google_auth_oauthlib.flow
 import googleapiclient.discovery
+from collections import Counter
 import os
 
 # this is a reference to the google project json file you downloaded using the setup.txt instructions
@@ -201,7 +202,9 @@ def profile():
     currUser=User.objects.get(gid=session['gid'])
     #Send the user to the profile.html template
     numMyCoins=Bullcoin.objects(owner=currUser).count()
-    return render_template("profile.html", currUser=currUser, data=session['gdata'],numMyCoins=numMyCoins)
+    gotCounter = Counter(currUser.gotcoins)
+    gaveCounter = Counter(currUser.gavecoins)
+    return render_template("profile.html", currUser=currUser, data=session['gdata'],numMyCoins=numMyCoins,gotCounter=gotCounter, gaveCounter=gaveCounter)
 
 # to get an in depth description of how creating, editing and deleting database recodes work check
 # out the feedback.py file.

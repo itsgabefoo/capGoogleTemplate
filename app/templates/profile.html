@@ -22,27 +22,28 @@ via google and via the User data object-->
 
     <div class="row">
         <div class="col">
-            <h3>I Gave coins to</h3>
+            <h3>Gave coins</h3>
             {% if currUser.gavecoins %}
-                {% for user in currUser.gavecoins %}
-                {{user.fname}} {{user.lname}} <br>
+                {% for item in gaveCounter %}
+                    {{gaveCounter[item]}} from {{item.fname}} {{item.lname}} 
                 {% endfor %}
             {% else %}
                 None
             {% endif %}
         </div>
+
         <div class="col">
-            <h3>I Got coins from</h3>
+            <h3>Got coins</h3>
             {% if currUser.gotcoins %}
-                {% for user in currUser.gotcoins %}
-                    {{user.fname}} {{user.lname}} <br>
+                {% for item in gotCounter %}
+                    {{gotCounter[item]}} from {{item.fname}} {{item.lname}} 
                 {% endfor %}
             {% else %}
                 None
             {% endif %}
         </div>
     </div>
-
+    <br> <br>
     <div>
         <h3>The User Object from this site</h3>
         <table class="table">

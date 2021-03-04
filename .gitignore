@@ -136,3 +136,4 @@ dmypy.json
 # credentials.json
 # notes.txt
 .vscode
+.zscripts.py

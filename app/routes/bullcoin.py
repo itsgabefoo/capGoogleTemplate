@@ -23,14 +23,18 @@ def transaction(giver,getter,numCoins,source=None):
     # the giver is the bankUser and the current user is a banker
     if currUser == giver or (currUser.banker and giver == bankUser):
         coins=Bullcoin.objects(owner=giver).limit(numCoins)
+        if len(coins) < numCoins:
+            flash(f"{giver.fname} {giver.lname} does not have enough coins to complete this transaction.")
+            status='fail'
+            return status
         for coin in coins:
             # create empty list from coins to be put in approval queue         
             # give the coin to the getter
             coin.update(
                 owner = getter
                 )
-            giver.gavecoins.append(coin)
-            getter.gotcoins.append(coin)
+            giver.gavecoins.append(getter)
+            getter.gotcoins.append(giver)
         giver.save()
         getter.save()
         flash(f"{giver.fname} {giver.lname} gave {numCoins} Bullcoin to {getter.fname} {getter.lname}")
@@ -187,6 +191,7 @@ def servicenew():
 def serviceedit(serviceid):
 
     editService = Service.objects.get(pk=serviceid)
+    # Create a list of users allowed to edit this record
     editors=[editService.owner.id]
     if editService.applicant:
         editors.append(editService.applicant.id)
@@ -194,28 +199,27 @@ def serviceedit(serviceid):
         editors.append(editService.provider.id)
 
     if not session['banker'] and not str(session['currUserId']) in str(editors):
-        flash('You are are not the owner of this service.')
+        flash("You can't edit this service.")
         return redirect(url_for('service',serviceid=editService.id))
 
     form = ServiceForm()
     if form.validate_on_submit():
+
         currUser=User.objects.get(pk=session['currUserId'])
-        if form.type_.data=="Provider":
-            editService.update(
-                provider=currUser,
+
+        if form.type_.data=="Provider" and not editService.provider:
+            editService.update(provider=currUser)
+
+        elif form.type_.data=="Applicant" and not editService.provider:
+            editService.update(applicant=currUser)
+
+        editService.update(
                 datetime=form.datetime.data,
                 category=form.category.data,
                 subject=form.subject.data,
                 desc=form.desc.data
             )
-        else:
-            editService.update(
-                applicant=currUser,
-                datetime=form.datetime.data,
-                category=form.category.data,
-                subject=form.subject.data,
-                desc=form.desc.data
-            )
+
         editService.reload()
         return redirect(url_for('service',serviceid=editService.id))
 

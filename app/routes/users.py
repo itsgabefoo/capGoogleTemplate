@@ -21,7 +21,7 @@ from app import app
 from .scopes import *
 
 from flask import render_template, redirect, url_for, request, session, flash
-from app.classes.data import User
+from app.classes.data import Bullcoin, User
 from app.classes.forms import UserForm
 from requests_oauth2.services import GoogleClient
 from requests_oauth2 import OAuth2BearerToken
@@ -35,8 +35,8 @@ import os
 CLIENT_SECRETS_FILE = "credentials.json"
 
 # List of email addresses for Admin users
-admins = ['stephen.wright@ousd.org','s_samuel.worku@ousd.org','s_mohammed.mohammed@ousd.org','s_elyas.ahmed@ousd.org','s_angel.liang2@ousd.org']
-bankers = ['stephen.wright@ousd.org','s_samuel.worku@ousd.org','s_mohammed.mohammed@ousd.org','s_elyas.ahmed@ousd.org','s_angel.liang2@ousd.org']
+admins = ['stephen.wright@ousd.org','s_samuel.worku@ousd.org','s_mohammed.mohammed@ousd.org','s_elyas.ahmed@ousd.org','s_angel.liang2@ousd.org','s_seetia.akpawu@ousd.org']
+bankers = ['stephen.wright@ousd.org','s_samuel.worku@ousd.org','s_mohammed.mohammed@ousd.org','s_elyas.ahmed@ousd.org','s_angel.liang2@ousd.org','s_seetia.akpawu@ousd.org']
 bankUserId = '603fc285ebaa6d04eaa0de69'
 
 # This runs before every route and serves to make sure users are using a secure site and can only
@@ -177,7 +177,7 @@ def login():
             banker = False
             if currUser.banker == True or not currUser.banker:
                 currUser.update(banker=False)
-                
+
     # this code puts several values in the session list variable.  The session variable is a great place
     # to store values that you want to be able to access while a user is logged in. The va;ues in the sesion
     # list can be added, changed, deleted as you would with any python list.
@@ -200,7 +200,8 @@ def profile():
     # this works because gid is defined in the data class to be unique 
     currUser=User.objects.get(gid=session['gid'])
     #Send the user to the profile.html template
-    return render_template("profile.html", currUser=currUser, data=session['gdata'])
+    numMyCoins=Bullcoin.objects(owner=currUser).count()
+    return render_template("profile.html", currUser=currUser, data=session['gdata'],numMyCoins=numMyCoins)
 
 # to get an in depth description of how creating, editing and deleting database recodes work check
 # out the feedback.py file.
@@ -326,7 +327,6 @@ def revoke():
     else:
         flash('An error occurred.')
         return redirect('/')
-
 
 @app.route("/logout")
 def logout():

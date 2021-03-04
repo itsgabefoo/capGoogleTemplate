@@ -6,11 +6,41 @@ via google and via the User data object-->
 
 {% block body %}
 
-<div class="containter">
+<div class="container">
     <div class="jumbotron text-center">
         <h1>Profile for {{ session['displayName'] }}</h1>
         <img src="{{currUser['image']}}" alt="user image"><br>
         <a class="btn btn-primary" href="/editprofile">Edit User</a>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <h1>My Bullcoin</h1>
+            <h2>{{numMyCoins}} Bullcoin</h2>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <h3>I Gave coins to</h3>
+            {% if currUser.gavecoins %}
+                {% for user in currUser.gavecoins %}
+                {{user.fname}} {{user.lname}} <br>
+                {% endfor %}
+            {% else %}
+                None
+            {% endif %}
+        </div>
+        <div class="col">
+            <h3>I Got coins from</h3>
+            {% if currUser.gotcoins %}
+                {% for user in currUser.gotcoins %}
+                    {{user.fname}} {{user.lname}} <br>
+                {% endfor %}
+            {% else %}
+                None
+            {% endif %}
+        </div>
     </div>
 
     <div>

@@ -57,7 +57,7 @@ class User(Document):
 
 class Bullcoin(Document):
     owner = ReferenceField('User')
-    created = DateTimeField(default=d.datetime.utcnow())
+    created = DateTimeField(default=d.datetime.utcnow)
     amt = IntField(default=1)
 
 class Service(Document):
@@ -74,7 +74,7 @@ class Service(Document):
     desc = StringField()
 
 class Approval(Document):
-    createdate=DateTimeField(default=d.datetime.utcnow())
+    createdate=DateTimeField(default=d.datetime.utcnow)
     giver=ReferenceField('User')
     getter=ReferenceField('User')
     numcoins=IntField()

@@ -32,5 +32,28 @@
         delete coins from the bank with /coinmint/-amt <br>
         You can give from the bank to a user with: /bankcoingive/useremail/amt <br>
         You can take coins back for the bank froim a user with: /bankcoingive/useremail/-amt <br>
-    </div>
+
+    <h1>approvals</h1>
+    <table class="table">
+        <tr>
+            <th>Created</th><th>Giver</th><th>Getter</th><th># Coins</th><th>Status</th><th>Source</th><th>Approve</th>
+        </tr>
+        {% for approval in approvals %}
+            <tr>
+                <td>{{approval.createdate}}</td>
+                <td>{{approval.giver.fname}} {{approval.giver.lname}}</td>
+                <td>{{approval.getter.fname}} {{approval.getter.lname}}</td>
+                <td>{{approval.numCoins}}</td>
+                <td>{{approval.status}}</td>
+                <td>
+                    {% if approval.source %}
+                        <a href="{{approval.source}}">Link</a>
+                    {% endif %}
+                </td>
+                <td><a href="/transactionapprove/{{approval.id}}"><img width="20" src="/static/new.png"></a></td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+    
 {% endblock %}

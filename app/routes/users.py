@@ -36,6 +36,8 @@ CLIENT_SECRETS_FILE = "credentials.json"
 
 # List of email addresses for Admin users
 admins = ['stephen.wright@ousd.org','s_samuel.worku@ousd.org','s_mohammed.mohammed@ousd.org','s_elyas.ahmed@ousd.org','s_angel.liang2@ousd.org']
+bankers = ['stephen.wright@ousd.org','s_samuel.worku@ousd.org','s_mohammed.mohammed@ousd.org','s_elyas.ahmed@ousd.org','s_angel.liang2@ousd.org']
+bankUserId = '603fc285ebaa6d04eaa0de69'
 
 # This runs before every route and serves to make sure users are using a secure site and can only
 # access pages they are allowed to access
@@ -129,6 +131,11 @@ def login():
         else:
             admin = False
 
+        if data['emailAddresses'][0]['value'] in bankers:
+            banker = True
+        else:
+            banker = False
+
         # Create a newUser object filled with the google values and the values that were just created
         newUser = User(
                         gid=data['emailAddresses'][0]['metadata']['source']['id'], 
@@ -139,7 +146,8 @@ def login():
                         email=data['emailAddresses'][0]['value'],
                         image=data['photos'][0]['url'],
                         role=role,
-                        admin=admin
+                        admin=admin,
+                        banker=banker
                        )
         # save the newUser
         newUser.save()
@@ -161,7 +169,15 @@ def login():
             admin = False
             if currUser.admin == True:
                 currUser.update(admin=False)
-
+        if data['emailAddresses'][0]['value'] in bankers:
+            banker = True
+            if currUser.banker == False or not currUser.banker:
+                currUser.update(banker=True)
+        else:
+            banker = False
+            if currUser.banker == True or not currUser.banker:
+                currUser.update(banker=False)
+                
     # this code puts several values in the session list variable.  The session variable is a great place
     # to store values that you want to be able to access while a user is logged in. The va;ues in the sesion
     # list can be added, changed, deleted as you would with any python list.
@@ -172,6 +188,7 @@ def login():
     session['gdata'] = data
     session['role'] = currUser.role
     session['admin'] = admin
+    session['banker'] = banker
     # The return_URL value is set above in the before_request route. This enables a user you is redirected to login to
     # be able to be returned to the page they originally asked for.
     return redirect(session['return_URL'])

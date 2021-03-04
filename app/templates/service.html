@@ -2,46 +2,78 @@
 
 {% block body %}
     <div class="container">
+        <h1>Service: {{service.subject}}</h1>
+        {% if session['currUserId']|string == service.provider.id|string or session['currUserId']|string == service.applicant.id|string  %}
+            <a href="/serviceedit/{{service.id}}"><img width="20" src="/static/edit.png"></a>
+        {% endif %}
+
+        <strong>Owner: {{service.owner.fname}} {{service.owner.lname}}</strong>
+        
+        <hr>
+        <h3>Stage 1: Owner defines the service</h3>
         <table class="table">
-            <tr><td>Owner</td><td>{{service.owner.fname}} {{service.owner.lname}}</td></tr>
+            <tr><th width="200">Category</th><td>{{service.category}}</td></tr>
             <tr>
-                <td>Verified</td>
+                <th>Applicant</th>
                 <td>
-                    {{service.verified}}
-                    {% if service.applicant.id|string == session['currUserId']|string %}
+                    {% if service.applicant %} 
+                        {{service.applicant.fname}} {{service.applicant.lname}}
+                    {% else %}
+                        <a href="/serviceselect/{{service.id}}/a"><img width="20" src="/static/new.png"></a>
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>Provider</th>
+                <td>
+                    {% if service.provider %} 
+                        {{service.provider.fname}} {{service.provider.lname}}
+                    {% else %}
+                        <a href="/serviceselect/{{service.id}}/p"><img width="20" src="/static/new.png"></a>
+                    {% endif %}
+                </td>
+            </tr>
+            <tr><th>Description</th><td>{{service.desc}}</td></tr>
+        </table>
+
+        <h3>Stage 2: Owner confirms the date and time</h3>
+        <table class="table">
+            <tr><td colspan="2"><small>Only the Owner can confirm. To confirm there must be a provider and an Applicant and the date must be in the future.</td></tr>
+            <tr>
+                <th width="200">When</th>
+                <td>
+                    {{service.datetime}}
+                    {% if session['currUserId']|string == service.provider.id|string or session['currUserId']|string == service.applicant.id|string  %}
+                        <a href="/serviceedit/{{service.id}}"><img width="20" src="/static/edit.png"></a>
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th>Confirm</th>
+                <td>
+                    {% if service.confirmed %}
+                        Confirmed
+                    {% else %}
+                        <a href="/serviceconfirm/{{service.id}}"><img width="20" src="/static/new.png"></a>
+                    {% endif %}
+                </td>
+            </tr>
+        </table>
+
+        <h3>Stage 3: Applicant verifies the service is complete</h3>
+        <table class="table">
+            <tr><td colspan="2"><small>Only the Applicant can verify. To Verify it must be confirmed and the date must be in the past.</td></tr>
+            <tr>
+                <th width="200">Verify</th>
+                <td>
+                    {% if service.verified %}
+                        Verified
+                    {% else %}
                         <a href="/serviceverify/{{service.id}}"><img width="20" src="/static/new.png"></a>
                     {% endif %}
                 </td>
             </tr>
-            <tr><td>Subject</td><td>{{service.subject}}</td></tr>
-            <tr><td>Category</td><td>{{service.category}}</td></tr>
-            <tr><td>Date</td><td>{{service.datetime}}</td></tr>
-            <tr>
-                <td>Provider</td>
-                <td>
-                    {%if service.provider%}
-                        {{service.provider.fname}} {{service.provider.lname}}
-                    {% else %}
-                        <a href="/serviceselect/{{service.id}}/p"><img width="20" src="/static/new.png"></a>
-                    {%endif%}
-                </td>
-            </tr>
-            <tr>
-                <td>Applicant</td>
-                <td>
-                    {% if service.applicant %}
-                        {{service.applicant.fname}} {{service.applicant.lname}}
-                    {% else %}
-                        <a href="/serviceselect/{{service.id}}/a"><img width="20" src="/static/new.png"></a>
-                    {%endif%}
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    Description: <br>
-                    {{service.desc}}
-                </td>
-            </tr>
+
         </table>
-    </div>
+
 {% endblock %}

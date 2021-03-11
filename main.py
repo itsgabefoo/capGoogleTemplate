@@ -12,4 +12,4 @@ if __name__ == "__main__":
     # You must use https to login to google
     # app.run(debug="True", ssl_context='adhoc')
     # app.run(debug="True", ssl_context=('cert.pem', 'key.pem'))
-    app.run()
+    app.run(debug="True")

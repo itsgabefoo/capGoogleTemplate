@@ -3,14 +3,156 @@
 {% extends "base.html" %}
 
 {% block body %}
-<!--This is the home page -->
-            <style>
-                body {
+<!--This is the home page -->     
+<style>
+    div.transbox {
+        margin: 30px;
+        background-color: #FFD700;
+        border: 1px solid rgba(0, 0, 0, 0);
+        opacity: 0.6;
+    }
+
+    div.transbox p {
+        margin: 5%;
+        font-weight: bold;
+        color: #000000;
+    }
+    div {
+        color: #bd82e7;
+    }
+
+</style>
+
+
+<div class="background">
+    <div class="transbox">
+        <div class="text-center">
+            <h1><strong>BullCoin</strong> </h1>
+        </div>
+    </div>
+</div>
+<div class="jumbotron text-center">
+    <!-- <h1>BullCoin</h1> -->
+    <div class="container">            
+        <img src="https://localwiki.org/media/cache/d0/d5/d0d5b0b92a8f682e65ef983b9a033cff.jpg" class="img-thumbnail" alt="Cinque Terre" width="1080" height="1920"> 
+    </div> 
+    
+    <!-- <div class="row">
+        <div class="col-3"></div>
+        <div id="carouselExampleControls" class="col-6 carousel slide" data-ride="carousel">
+        
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="https://localwiki.org/media/cache/d0/d5/d0d5b0b92a8f682e65ef983b9a033cff.jpg" class="d-block w-100">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://lh3.googleusercontent.com/proxy/SMhvsAEUi7tnAY0hjMFOGF2sI6aJT6ILx445JGaV1IpiEim5qQGaKBMuuhHeiignujC1ceSyqA7DJqe5fES645bhaXwGgyi5l7VCU9gwkDYa" class="d-block w-100">
+                </div>
+            </div>
+
+            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span> 
+            </a>
+
+            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+            </a>
+        </div>
+        <div class="col-3"></div>
+    </div> -->
+  </div>
+  <br>
+  <!-- Carousel Navigation -->
+    <div id="carousel-thumbs" class="carousel slide" data-ride="carousel">
+        <div class="text-center">
+            <h1><strong>Populer Prodact</strong> </h1>
+        </div>
+        <br><br>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="row mx-0">
+                <div id="carousel-selector-0" class="thumb col-4 col-sm-2 px-1 py-2 selected" data-target="#myCarousel" data-slide-to="0">
+                    <img src="https://source.unsplash.com/Pn6iimgM-wo/600x400/" class="img-fluid" alt="...">
+                </div>
+                <div id="carousel-selector-1" class="thumb col-4 col-sm-2 px-1 py-2" data-target="#myCarousel" data-slide-to="1">
+                    <img src="https://source.unsplash.com/tXqVe7oO-go/600x400/" class="img-fluid" alt="...">
+                </div>
+                <div id="carousel-selector-2" class="thumb col-4 col-sm-2 px-1 py-2" data-target="#myCarousel" data-slide-to="2">
+                    <img src="https://source.unsplash.com/qlYQb7B9vog/600x400/" class="img-fluid" alt="...">
+                </div>
+                <div id="carousel-selector-3" class="thumb col-4 col-sm-2 px-1 py-2" data-target="#myCarousel" data-slide-to="3">
+                    <img src="https://source.unsplash.com/QfEfkWk1Uhk/600x400/" class="img-fluid" alt="...">
+                </div>
+                <div id="carousel-selector-4" class="thumb col-4 col-sm-2 px-1 py-2" data-target="#myCarousel" data-slide-to="4">
+                    <img src="https://source.unsplash.com/CSIcgaLiFO0/600x400/" class="img-fluid" alt="...">
+                </div>
+                <div id="carousel-selector-5" class="thumb col-4 col-sm-2 px-1 py-2" data-target="#myCarousel" data-slide-to="5">
+                    <img src="https://source.unsplash.com/a_xa7RUKzdc/600x400/" class="img-fluid" alt="...">
+                </div>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <div class="row mx-0">
+            <div id="carousel-selector-6" class="thumb col-4 col-sm-2 px-1 py-2" data-target="#myCarousel" data-slide-to="6">
+                <img src="https://source.unsplash.com/uanoYn1AmPs/600x400/" class="img-fluid" alt="...">
+            </div>
+            <div id="carousel-selector-7" class="thumb col-4 col-sm-2 px-1 py-2" data-target="#myCarousel" data-slide-to="7">
+                <img src="https://source.unsplash.com/_snqARKTgoc/600x400/" class="img-fluid" alt="...">
+            </div>
+            <div id="carousel-selector-8" class="thumb col-4 col-sm-2 px-1 py-2" data-target="#myCarousel" data-slide-to="8">
+                <img src="https://source.unsplash.com/M9F8VR0jEPM/600x400/" class="img-fluid" alt="...">
+            </div>
+            <div id="carousel-selector-9" class="thumb col-4 col-sm-2 px-1 py-2" data-target="#myCarousel" data-slide-to="9">
+                <img src="https://source.unsplash.com/Q1p7bh3SHj8/600x400/" class="img-fluid" alt="...">
+            </div>
+            <div id="carousel-selector-10" class="thumb col-4 col-sm-2 px-1 py-2" data-target="#myCarousel" data-slide-to="7">
+                <img src="https://source.unsplash.com/_snqARKTgoc/600x400/" class="img-fluid" alt="...">
+            </div>
+            <div id="carousel-selector-11" class="thumb col-4 col-sm-2 px-1 py-2" data-target="#myCarousel" data-slide-to="6">
+                <img src="https://source.unsplash.com/uanoYn1AmPs/600x400/" class="img-fluid" alt="...">
+            </div>
+            <div class="col-2 px-1 py-2"></div>
+            <div class="col-2 px-1 py-2"></div>
+        </div>
+    
+        </div>
+            <a class="carousel-control-prev" href="#carousel-thumbs" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carousel-thumbs" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div> 
+  <!-- <div class="container">
+    <div class="row">
+      <div class="col-sm-4">
+            <h3>Column 1</h3>
+            <p>Lorem ipsum dolor..</p>
+      </div>
+      <div class="col-sm-4">
+            <h3>Column 2</h3>
+            <p>Lorem ipsum dolor..</p>
+      </div>
+      <div class="col-sm-4">
+            <h3>Column 3</h3>
+            <p>Lorem ipsum dolor..</p>
+      </div>
+    </div> -->
+</div>
+
+  
+            <!-- <style>
+                /* body {
                     background-image: url('https://oaklandtech.com/staff/files/2015/10/Dusk-at-school-1024x500.jpg');
                     background-repeat: no-repeat;
                     background-attachment: fixed;
                     background-size: cover;
-                }
+                } */
                 div.transbox {
                     margin: 30px;
                     background-color: #ffffff;
@@ -34,6 +176,32 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-3"></div>
+            <div id="carouselExampleControls" class="col-6 carousel slide" data-ride="carousel">
+            
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="https://localwiki.org/media/cache/d0/d5/d0d5b0b92a8f682e65ef983b9a033cff.jpg" class="d-block w-100">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://lh3.googleusercontent.com/proxy/SMhvsAEUi7tnAY0hjMFOGF2sI6aJT6ILx445JGaV1IpiEim5qQGaKBMuuhHeiignujC1ceSyqA7DJqe5fES645bhaXwGgyi5l7VCU9gwkDYa" class="d-block w-100">
+                    </div>
+                </div>
+
+                <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span> 
+                </a>
+
+                <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+                </a>
+            </div>
+            <div class="col-3"></div>
+        </div>
+        
         <div class="row">
             <div class="col-2"></div>
             <div class="col-8">
@@ -74,9 +242,111 @@
                 </a>
             </div>
             <div class="col-3"></div>
+        </div> -->
+
+<div class="container mt-5 mb-5">
+    <div class="text-center">
+        <h1><strong>News Feed</strong> </h1>
+    </div>
+    <br>
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-8">
+            <div class="d-flex flex-row"></div>
+            <div class="row news-card p-3 bg-white">
+                <div class="col-md-4">
+                    <div class="feed-image"><img class="news-feed-image rounded img-fluid img-responsive" src="https://i.imgur.com/ZKbpmaU.jpg"></div>
+                </div>
+                <div class="col-md-8">
+                    <div class="news-feed-text">
+                        <h5>Oakland Tech High school is soon gonna Lunch BullCoin</h5><span>BullCoin is an online school Currency and website that is used to help high school students to get tutored and ask for help by reseiving our very own BullCoin. <br></span>
+                        <div class="d-flex flex-row justify-content-between align-items-center mt-2">
+                            <div class="d-flex creator-profile"><img class="rounded-circle" src="data:image/jpeg;base64,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" width="50" height="50">
+                                <div class="d-flex flex-column ml-2">
+                                    <h6 class="username">Samuel Worku</h6><span class="date">Mar 11,2021</span>
+                                </div>
+                            </div><i class="fa fa-share share"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-
-
+    </div>
+</div>        
+<br><br><br><br>
+<!-- Footer -->
+<footer class="bg-dark text-center text-white">
+    <!-- Grid container -->
+    <div class="container p-4">
+      <!-- Section: Social media -->
+      <!-- Section: Social media -->
+  
+      <!-- Section: Form -->
+      <section class="">
+        <form action="">
+          <!--Grid row-->
+          <div class="row d-flex justify-content-center">
+            <!--Grid column-->
+            <div class="col-auto">
+              <p class="pt-2">
+                <strong>Sign up for our newsletter</strong>
+              </p>
+            </div>
+            <!--Grid column-->
+  
+            <!--Grid column-->
+            <div class="col-md-5 col-12">
+              <!-- Email input -->
+              <div class="form-outline form-white mb-4">
+                <input type="email" id="form5Example2" class="form-control" />
+                <label class="form-label" for="form5Example2">Email address</label>
+              </div>
+            </div>
+            <!--Grid column-->
+  
+            <!--Grid column-->
+            <div class="col-auto">
+              <!-- Submit button -->
+              <button type="submit" class="btn btn-outline-light mb-4">
+                Subscribe
+              </button>
+            </div>
+            <!--Grid column-->
+          </div>
+          <!--Grid row-->
+        </form>
+      </section>
+      <!-- Section: Form -->
+  
+      <!-- Section: Text -->
+      <section class="mb-4">
+        <p>
+          This is the Oakland Tech High School Seniors Project, this is a use for students to reseivie 
+          BullCoin and tutoring!
+        </p>
+      </section>
+      <!-- Section: Text -->
+  
+      <!-- Section: Links -->
+      <section class="">
+        <!--Grid row-->
+        <div class="row">
+          <!--Grid column-->
+          <!--Grid column-->
+        </div>
+        <!--Grid row-->
+      </section>
+      <!-- Section: Links -->
+    </div>
+    <!-- Grid container -->
+  
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(240, 240, 240, 0.2);">
+      © 2020 Copyright:
+      <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+    </div>
+    <!-- Copyright -->
+  </footer>
+  <!-- Footer -->
 
        
         

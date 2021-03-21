@@ -5,14 +5,14 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
+    <!-- <ul class="navbar-nav">
       <li>
         <a class="nav-link active" href="/calendar">My Calendar</a>
       </li>
       <li>
         <a class="nav-link active" href="#">A Link</a>
       </li>
-    </ul>
+    </ul> -->
     <ul class="navbar-nav ml-auto">
       {% if session['credentials'] and session["displayName"] %}
         {% if session['admin'] %}
@@ -34,11 +34,11 @@
         {% endif %}
           <li class="nav-item dropdown active">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              BullCoin
+              Get Help / Give Help
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" href="/services">Services</a>
-              <a class="dropdown-item" href="/profile">My BullCoin</a>
+              <a class="dropdown-item" href="/profile">My BullCoin Wallet</a>
             </div>
           </li>
           <li class="nav-item dropdown active">

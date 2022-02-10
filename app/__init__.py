@@ -12,7 +12,7 @@ app = Flask(__name__)
 # os.environ.get("SECRET_KEY") will fail because we do not have that variable set in the os.environment
 app.config["SECRET_KEY"] = os.environ.get("FLASK_SECRET_KEY") or os.urandom(20)
 # you must change the next line to be link to your database at mlab
-connect("capGoogleTemplate", host='mongodb+srv://capGoogleTemplate:bu11dogz@cluster0.8m0v1.mongodb.net/capGoogleTemplate?retryWrites=true&w=majority')
+connect("capGoogleTemplate", host='<get this from mongodb>')
 
 moment = Moment(app)
 

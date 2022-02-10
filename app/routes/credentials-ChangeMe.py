@@ -19,3 +19,4 @@ GOOGLE_CLIENT_CONFIG = {
             ]
         }
 }
+

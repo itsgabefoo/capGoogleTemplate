@@ -15,3 +15,5 @@ GOOGLE_CLIENT_CONFIG = {
             ]
         }
 }
+
+#connect("capGoogleTemplate", host='mongodb+srv://capGoogleTemplate:bu11dogz@cluster0.8m0v1.mongodb.net/capGoogleTemplate?retryWrites=true&w=majority')

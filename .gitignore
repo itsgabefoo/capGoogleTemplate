@@ -133,7 +133,6 @@ dmypy.json
 *.code-workspace
 
 # CapstoneTemplate
-credentials.json
-# notes.txt
+credentials.py
 .vscode
 .zscripts.py

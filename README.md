@@ -1,3 +1,1 @@
-# bullcoin
-
-https://deploy.cloud.run/?git_repo=https://github.com/conchesness/bullcoin
+Template for Capstone that logs in to google

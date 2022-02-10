@@ -34,15 +34,6 @@ class UserForm(FlaskForm):
     # all forms must have a submit
     submit = SubmitField("Submit")
 
-class ServiceForm(FlaskForm):
-    subject = StringField('Subject: ',validators=[InputRequired()])
-    amt = IntegerField(default=1)
-    datetime = DateTimeLocalField(format='%Y-%m-%dT%H:%M')
-    type_ = SelectField("Type: ",choices=[('','----'),("Provider","Provider"),("Applicant","Applicant")],validators=[InputRequired()])
-    category = SelectField("",choices=[("Tutoring","Tutoring")],validators=[InputRequired()])
-    desc = TextAreaField('Description: ')
-    submit = SubmitField("Submit")
-
 # This is the form for creating and editing a Post.
 class PostForm(FlaskForm):
     subject = StringField("Title")

@@ -6,12 +6,10 @@ group member do this.
 This assumes you have: 
 1) installed Anaconda properly 
 2) you have installed GitHub Properly 
-3) you have cloned the 2020Capstone GitHub Repository (which is how you got the files you are looking at now)
+3) you have cloned the capGoogleTemplate GitHub Repository (which is how you got the files you are looking at now)
 ^ These instructions were provided seperately.
 
 Video for this part: https://drive.google.com/file/d/18e3mFSxdpPKRKnEPbkDto9dWXSBWnSup/view
-
-Organize your files.  To the left you should see "2020Capstone".  
 
 Now you need to install all of python packages.  To do this, open the terminal in Visual Studio Code. If it is not
 already open then go to the Terminal menu and choose "New Terminal". If the terminal is set to "powershell" pull down the 

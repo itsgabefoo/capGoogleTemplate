@@ -4,9 +4,7 @@
 # For a thorough description of how to do stuff, go to the feedback.py file
 
 from .users import *
-from .bullcoin import *
 from .posts import *
 from .calendar import *
 from .feedback import *
 from .scopes import *
-from .zscripts import*

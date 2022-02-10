@@ -38,7 +38,6 @@ class User(Document):
     # In the users.py file there is a python list of email addresses of people designated to be "admins" of this app.
     # so that user has some special privleges.
     admin = BooleanField()
-    banker = BooleanField() # Bullcoin Admin
     # The following values are all set in the users.py file.  these fields can all be edited by the user in the edit profile function.
     pronouns = StringField()
     fname = StringField()
@@ -48,38 +47,10 @@ class User(Document):
     # DateField() holds just a date.  There is also a DateTimeField()
     birthdate = DateField()
     # This is how you set the default sorting.  You can also sort records after you retreive them in the route.
-    gotcoins = ListField(ReferenceField('User'))
-    gavecoins = ListField(ReferenceField('User'))
     
     meta = {
         'ordering': ['+lname', '+fname']
     }
-
-class Bullcoin(Document):
-    owner = ReferenceField('User')
-    created = DateTimeField(default=d.datetime.utcnow)
-    amt = IntField(default=1)
-
-class Service(Document):
-    subject = StringField()
-    owner = ReferenceField('User')
-    provider = ReferenceField('User')
-    applicant = ReferenceField('User')
-    amt = IntField()
-    confirmed = BooleanField()
-    verified = BooleanField()
-    datetime = DateTimeField()
-    type_ = StringField() #request or offer
-    category = StringField()
-    desc = StringField()
-
-class Approval(Document):
-    createdate=DateTimeField(default=d.datetime.utcnow)
-    giver=ReferenceField('User')
-    getter=ReferenceField('User')
-    numcoins=IntField()
-    status=StringField() # "Pending", "Approved", "Rejected"
-    source=StringField()
 
 # This class is what creates the Feedback document in the database.
 # A feedback is defined as a comment by a user on some feature of the website. 

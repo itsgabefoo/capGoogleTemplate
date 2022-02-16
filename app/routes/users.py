@@ -23,7 +23,7 @@ from .scopes import *
 from flask import render_template, redirect, url_for, request, session, flash
 from app.classes.data import User
 from app.classes.forms import UserForm
-from .credentials import GOOGLE_CLIENT_CONFIG
+from app.credentials import GOOGLE_CLIENT_CONFIG
 from requests_oauth2.services import GoogleClient
 from requests_oauth2 import OAuth2BearerToken
 import requests
@@ -185,9 +185,7 @@ def profile():
     # this works because gid is defined in the data class to be unique 
     currUser=User.objects.get(gid=session['gid'])
     #Send the user to the profile.html template
-    gotCounter = Counter(currUser.gotcoins)
-    gaveCounter = Counter(currUser.gavecoins)
-    return render_template("profile.html", currUser=currUser, data=session['gdata'],numMyCoins=numMyCoins,gotCounter=gotCounter, gaveCounter=gaveCounter)
+    return render_template("profile.html", currUser=currUser, data=session['gdata'])
 
 # to get an in depth description of how creating, editing and deleting database recodes work check
 # out the feedback.py file.

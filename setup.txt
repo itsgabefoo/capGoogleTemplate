@@ -77,8 +77,10 @@ https://drive.google.com/file/d/1UOPdNptU8R50AzZIZGhk3Yg1gKIeuBBo/view
     Look for "OAuth 2.0 Client IDs" and you should see the name for the credentials you just created.  Click that.
     It should say "Client ID for Web application" 
     at the top and next to that it should say Download JSON.  Click download JSON.
-14) The JSON file you download you need to rename to --> "credentials.json" and put it in your files at the same 
-    level of your flask app as the "main.py" file.
+14) Copy three of the values out of the json file you just downloaded and copy them into the 
+    credentials_ChangeMe.py file that is in the app folder. The three values are for: 'client_id", 
+    'project_id', 'client_secret'. Be sure to get rid of the angle brackets ie < and >.
+15) Then change the file name to be just credentials.py
 
 Once again, start the app to see if you did it right.  This time you should be able to login!
 You will eventually get an error.  Probably the error will be a "pymongo" error.
@@ -97,12 +99,12 @@ Here is a link to video I made about the process for getting a mongodb.com accou
 3) You then going to get a free database "cluster".  Follow the instructions to do this.  Once you click the "Create Cluster"
     button it will take a while for the cluster to be created. The new cluster will be greyed out until it is done.  When 
     the new cluster is ready you will be able to click the connect button.
-4) click the connect button and then add 0.0.0.0 as teh whitelist IP.  This will make it possible to administer your 
+4) click the connect button and then add 0.0.0.0 as the whitelist IP.  This will make it possible to administer your 
     database from anywhere.  Also add and new database admin and password.  This password will be viwable by a lot of people 
     in class so don't use one that you already use for other important things.  Something simple like Admin and BullDogz.
 5) Now you need to choose a connection method.  Click "Connect Your Application" and then configure the screen to give you the 
     code for Python 3.6 and above and click "Copy"
-6) At the end of the video you will have copied a string that looks like this:
+6) At the end of the video you will have copied a string that looks something like this:
     mongodb+srv://admin:<password>@cluster0-8m0v1.gcp.mongodb.net/test?retryWrites=true&w=majority   
     and now you need to paste it in to your app. 
 7) Go to the __init__.py file in the app folder (app/__init__.py) and replace the connect string that is there

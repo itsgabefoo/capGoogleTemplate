@@ -20,3 +20,11 @@ GOOGLE_CLIENT_CONFIG = {
         }
 }
 
+#This is the name of the database you are connecting to at mongoDB
+mongo_db_name = "<mongoDB data base name>"
+#This is the connect string that you copied when you configured your database
+#Be sue to put the db admin name and the password you created when you made your mongodb
+#account.  This is NOT the name and pw that you use to login to MongoDB but it is the user
+#that you created to administer the database. Take a look at the example below.  The cluster 
+#part will be different for your database.
+mongo_host = "mongodb+srv://<admin_user>:<pw_for_Admin_User>@cluster0.8m0v1.mongodb.net/<database_name>?retryWrites=true&w=majority"

@@ -87,32 +87,28 @@ You will eventually get an error.  Probably the error will be a "pymongo" error.
 
 ### Step Three: hook up your database ###
 
-Here is a video:
-https://drive.google.com/file/d/1tDZzE4Yb2C8OK6MXn4n_8LgQyHFr9eCW/view
-
 The next is mongodb.com where you will create your database and all the data from your site will be stored.
 Here is a link to video I made about the process for getting a mongodb.com account:
 1) I will describe the basic process to see how to get an account at mongodb.com and find the 
     code you need to include in your app.
 2) Sign up for an account at mongodb.com.  Click the "sign up" and NOT the "Try it Free" link.  This way you can
     create a new account with your google credentials.
-3) You then going to get a free database "cluster".  Follow the instructions to do this.  Once you click the "Create Cluster"
-    button it will take a while for the cluster to be created. The new cluster will be greyed out until it is done.  When 
+3) You will get a free database "cluster".  Follow the instructions to do this.  Once you click the "Create Cluster"
+    button it will take a few minutes for the cluster to be created. The new cluster will be greyed out until it is done.  When 
     the new cluster is ready you will be able to click the connect button.
 4) click the connect button and then add 0.0.0.0 as the whitelist IP.  This will make it possible to administer your 
-    database from anywhere.  Also add and new database admin and password.  This password will be viwable by a lot of people 
+    database from anywhere.  
+5) Now add and new database administrator user and password.  This password will be viewable by a lot of people 
     in class so don't use one that you already use for other important things.  Something simple like Admin and BullDogz.
 5) Now you need to choose a connection method.  Click "Connect Your Application" and then configure the screen to give you the 
     code for Python 3.6 and above and click "Copy"
 6) At the end of the video you will have copied a string that looks something like this:
-    mongodb+srv://admin:<password>@cluster0-8m0v1.gcp.mongodb.net/test?retryWrites=true&w=majority   
-    and now you need to paste it in to your app. 
-7) Go to the __init__.py file in the app folder (app/__init__.py) and replace the connect string that is there
-    and replace <dbuser> with the username you just created
-    and replace <dbpassword> with the password you just created
-8) take that string and place it in the __init__.py file in the app folder
+    mongodb+srv://<admin_user>:<pw_for_Admin_User>@cluster0.8m0v1.mongodb.net/<database_name>?retryWrites=true&w=majority  
+7) Go to the credentials.py file that you worked on earlier and add the mongoDB information at the bottom. There are two 
+    variables you need to add. The first is the name of the database you created.  The second is the host string. Be
+    careful to add all the user, password and database name info to the host string.
 
 You should be ready to go!
 
-Then click on the main.py file. You might get a popup window asking you to install pythin. Do that. Then in the top left of 
+Then click on the local.py file. You might get a popup window asking you to install pythin. Do that. Then in the top left of 
 your screen you should see a green triangle. Click it to run the app. Weeeeeeeeeeeee!!!!

@@ -14,10 +14,10 @@ app = Flask(__name__)
 app.config["SECRET_KEY"] = os.environ.get("FLASK_SECRET_KEY") or os.urandom(20)
 # you must change the next line to be link to your database at mlab
 
-from app.credentials import mongo_user, mongo_pw
+from app.credentials import mongo_db_name, mongo_host
 
-#connect("capGoogleTemplate", host='mongodb+srv://capGoogleTemplate:bu11dogz@cluster0.8m0v1.mongodb.net/capGoogleTemplate?retryWrites=true&w=majority')
-connect("capGoogleTemplate", host=f'mongodb+srv://{mongo_user}:{mongo_pw}@cluster0.8m0v1.mongodb.net/capGoogleTemplate?retryWrites=true&w=majority')
+connect(mongo_db_name, host=mongo_host)
+
 
 moment = Moment(app)
 
